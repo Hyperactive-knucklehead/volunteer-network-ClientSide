@@ -6,6 +6,7 @@ import Login from "../Components/Login/Login";
 import Registration from "../Components/Registration/Registration";
 import NavigationBar from "../Components/Shared/NavigationBar/NavigationBar";
 import Signup from "../Components/Signup/Signup";
+import UserEvents from "../Components/UserEvents/UserEvents";
 import PrivateRoute from "../Private/PrivateRoute";
 
 const AppRouter = () => {
@@ -26,6 +27,7 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/registeredEvents/myEvents" element={<UserEvents />} />
       </Routes>
     </Router>
   );
