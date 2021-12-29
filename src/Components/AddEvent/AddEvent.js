@@ -13,7 +13,7 @@ const AddEvent = () => {
   const [loading, setLoading] = useState(false);
   const [picture, setPicture] = useState("");
   const onDrop = (pictureFiles, pictureDataURLs) => {
-    setPicture(pictureDataURLs);
+    setPicture(pictureDataURLs[0]);
   };
   const onSubmit = (data) => {
     setLoading(true);
@@ -79,7 +79,7 @@ const AddEvent = () => {
         </Row>
         {loading ? (
           <Button
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
             variant="primary"
             className="ms-auto d-block shadow-none"
             disabled
@@ -95,7 +95,7 @@ const AddEvent = () => {
           </Button>
         ) : (
           <Button
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
             className="ms-auto  d-block shadow-none"
             variant="primary"
             type="submit"

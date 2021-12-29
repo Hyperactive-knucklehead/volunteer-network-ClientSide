@@ -78,8 +78,7 @@ const Registration = () => {
       {event.name ? (
         <Form
           onSubmit={handleSubmit(onSubmit)}
-          style={{ width: "40%" }}
-          className="mx-auto mb-5 border p-5"
+          className="mx-auto mb-5 border p-5 registration-form"
         >
           <h4 className="mb-4">Register as a Volunteer</h4>
           <Form.Group className="mb-3">

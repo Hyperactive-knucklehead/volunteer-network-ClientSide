@@ -34,7 +34,14 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/registeredEvents/myEvents" element={<UserEvents />} />
+        <Route
+          path="/registeredEvents/myEvents"
+          element={
+            <PrivateRoute>
+              <UserEvents />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/makeAdmin"
           element={

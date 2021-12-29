@@ -5,3 +5,11 @@
 .react-date-picker__clear-button {
   display: none;
 }
+.registration-form {
+  width: 40%;
+}
+@media screen and (max-width: 911px) {
+  .registration-form {
+    width: 90%;
+  }
+}
