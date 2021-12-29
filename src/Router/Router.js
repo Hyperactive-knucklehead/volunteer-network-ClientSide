@@ -10,6 +10,7 @@ import NavigationBar from "../Components/Shared/NavigationBar/NavigationBar";
 import Signup from "../Components/Signup/Signup";
 import UserEvents from "../Components/UserEvents/UserEvents";
 import PrivateRoute from "../Private/PrivateRoute";
+import MakeAdmin from "../Components/MakeAdmin/MakeAdmin";
 
 const AppRouter = () => {
   return (
@@ -30,6 +31,7 @@ const AppRouter = () => {
           }
         />
         <Route path="/registeredEvents/myEvents" element={<UserEvents />} />
+        <Route path="/makeAdmin" element={<MakeAdmin />} />
         <Route path="/forbidden" element={<Forbidden />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
