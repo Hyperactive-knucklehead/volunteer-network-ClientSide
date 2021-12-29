@@ -14,6 +14,7 @@ import MakeAdmin from "../Components/MakeAdmin/MakeAdmin";
 import AdminRoute from "../Admin/AdminRoute";
 import AddEvent from "../Components/AddEvent/AddEvent";
 import ManageEvents from "../Components/ManageEvents/ManageEvents";
+import RegisteredEvents from "../Components/RegisteredEvents/RegisteredEvents";
 
 const AppRouter = () => {
   return (
@@ -55,6 +56,14 @@ const AppRouter = () => {
           element={
             <AdminRoute>
               <ManageEvents />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/allRegisteredEvent"
+          element={
+            <AdminRoute>
+              <RegisteredEvents />
             </AdminRoute>
           }
         />

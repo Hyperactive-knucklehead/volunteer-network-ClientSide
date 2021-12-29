@@ -17,7 +17,7 @@ const Registration = () => {
   const [value, onChange] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   //show the dynamic event
   const { eventId } = useParams();
@@ -63,6 +63,7 @@ const Registration = () => {
         }
       });
     }
+    reset();
     setLoading(false);
   };
   error &&
