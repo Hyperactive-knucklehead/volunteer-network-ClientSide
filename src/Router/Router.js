@@ -12,7 +12,8 @@ import UserEvents from "../Components/UserEvents/UserEvents";
 import PrivateRoute from "../Private/PrivateRoute";
 import MakeAdmin from "../Components/MakeAdmin/MakeAdmin";
 import AdminRoute from "../Admin/AdminRoute";
-import AddEvent from "../AddEvent/AddEvent";
+import AddEvent from "../Components/AddEvent/AddEvent";
+import ManageEvents from "../Components/ManageEvents/ManageEvents";
 
 const AppRouter = () => {
   return (
@@ -46,6 +47,14 @@ const AppRouter = () => {
           element={
             <AdminRoute>
               <AddEvent />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/manageAllEvent"
+          element={
+            <AdminRoute>
+              <ManageEvents />
             </AdminRoute>
           }
         />
