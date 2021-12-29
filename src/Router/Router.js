@@ -11,6 +11,8 @@ import Signup from "../Components/Signup/Signup";
 import UserEvents from "../Components/UserEvents/UserEvents";
 import PrivateRoute from "../Private/PrivateRoute";
 import MakeAdmin from "../Components/MakeAdmin/MakeAdmin";
+import AdminRoute from "../Admin/AdminRoute";
+import AddEvent from "../AddEvent/AddEvent";
 
 const AppRouter = () => {
   return (
@@ -31,7 +33,22 @@ const AppRouter = () => {
           }
         />
         <Route path="/registeredEvents/myEvents" element={<UserEvents />} />
-        <Route path="/makeAdmin" element={<MakeAdmin />} />
+        <Route
+          path="/makeAdmin"
+          element={
+            <AdminRoute>
+              <MakeAdmin />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/addEvent"
+          element={
+            <AdminRoute>
+              <AddEvent />
+            </AdminRoute>
+          }
+        />
         <Route path="/forbidden" element={<Forbidden />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
