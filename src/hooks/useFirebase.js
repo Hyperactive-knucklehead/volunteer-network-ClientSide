@@ -12,8 +12,11 @@ import {
   updateProfile,
   getIdToken,
 } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useState, useEffect } from "react";
-import initializeAuthentication from "../firebase/firebase.init.js";
+import initializeAuthentication, {
+  storage,
+} from "../firebase/firebase.init.js";
 initializeAuthentication();
 const useFirebase = () => {
   const auth = getAuth();
@@ -80,6 +83,24 @@ const useFirebase = () => {
     return sendPasswordResetEmail(auth, email);
   };
 
+  //upload image
+  const uploadImage = (file) => {
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        //progress
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {});
+      }
+    );
+  };
+
   // observing the current user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -137,6 +158,7 @@ const useFirebase = () => {
     handleSignIn,
     resetPassword,
     token,
+    uploadImage,
   };
 };
 

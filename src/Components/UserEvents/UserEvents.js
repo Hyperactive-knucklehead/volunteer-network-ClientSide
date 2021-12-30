@@ -14,20 +14,16 @@ const UserEvents = () => {
     token,
   } = useAuth();
   useEffect(() => {
-    try {
-      axios
-        .get(
-          `https://intense-tor-04551.herokuapp.com/registeredInfo/${email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => setUserEvents(res.data));
-    } catch (error) {
-      if (error) navigate("/forbidden");
-    }
+    axios
+      .get(`https://intense-tor-04551.herokuapp.com/registeredInfo/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) return setUserEvents(res.data);
+        else return navigate("/forbidden");
+      });
   }, [email, navigate, token]);
 
   //confirming deletion

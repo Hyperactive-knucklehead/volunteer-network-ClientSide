@@ -5,32 +5,33 @@ import { useForm } from "react-hook-form";
 import ImageUploader from "react-images-upload";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useFirebase from "../../hooks/useFirebase";
 
 const AddEvent = () => {
   const navigate = useNavigate();
+  const { uploadImage } = useFirebase();
   const { register, handleSubmit, reset } = useForm();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [picture, setPicture] = useState("");
+  const [showPic, setShowPic] = useState("");
   const onDrop = (pictureFiles, pictureDataURLs) => {
-    setPicture(pictureDataURLs[0]);
+    setPicture(pictureFiles[0]);
+    setShowPic(pictureDataURLs[0]);
   };
   const onSubmit = (data) => {
     setLoading(true);
-    if (!picture) {
-      setError("Image is required");
-      error &&
-        Swal.fire({
-          icon: "error",
-          title: "Something went wrong!",
-          text: `${error}`,
-        });
-      setLoading(false);
+    if (!showPic) {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: "Image is required",
+      });
     } else {
-      data.image = picture;
+      uploadImage(picture);
+      data.image = `https://firebasestorage.googleapis.com/v0/b/volunteer-network-881a3.appspot.com/o/images%2F${picture.name}?alt=media`;
+
       axios
         .post("https://intense-tor-04551.herokuapp.com/events", data)
-        .then(() => setLoading(false))
         .then(() => {
           Swal.fire(
             "Good job!",
@@ -41,6 +42,7 @@ const AddEvent = () => {
           });
         });
     }
+    setLoading(false);
     reset();
   };
 
@@ -64,12 +66,14 @@ const AddEvent = () => {
               <Form.Label className="fw-bold">Banner</Form.Label>
               <div>
                 {picture && (
-                  <img className="w-25" src={picture} alt="bannerImage" />
+                  <img className="w-25" src={showPic} alt="bannerImage" />
                 )}
                 <ImageUploader
                   withIcon
+                  disabled
                   onChange={onDrop}
                   singleImage
+                  buttonText="Upload Image"
                   imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                   maxFileSize={5242880}
                 />
@@ -79,7 +83,7 @@ const AddEvent = () => {
         </Row>
         {loading ? (
           <Button
-            style={{ width: "15%" }}
+            style={{ width: "10%" }}
             variant="primary"
             className="ms-auto d-block shadow-none"
             disabled
@@ -95,7 +99,7 @@ const AddEvent = () => {
           </Button>
         ) : (
           <Button
-            style={{ width: "15%" }}
+            style={{ width: "10%" }}
             className="ms-auto  d-block shadow-none"
             variant="primary"
             type="submit"

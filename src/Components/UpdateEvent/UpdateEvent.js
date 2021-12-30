@@ -4,17 +4,26 @@ import { useForm } from "react-hook-form";
 import ImageUploader from "react-images-upload";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useFirebase from "../../hooks/useFirebase";
 const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
   const { register, handleSubmit, reset } = useForm();
+  const { uploadImage } = useFirebase();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [picture, setPicture] = useState("");
+  const [showPic, setShowPic] = useState("");
   const onDrop = (pictureFiles, pictureDataURLs) => {
-    setPicture(pictureDataURLs);
+    setPicture(pictureFiles[0]);
+    setShowPic(pictureDataURLs[0]);
   };
   const onSubmit = (data) => {
     setLoading(true);
-    data.image = picture ? picture : event.image;
+    if (picture) {
+      uploadImage(picture);
+      data.image = `https://firebasestorage.googleapis.com/v0/b/volunteer-network-881a3.appspot.com/o/images%2F${picture.name}?alt=media`;
+    } else {
+      data.image = event.image;
+    }
     axios
       .patch(
         `https://intense-tor-04551.herokuapp.com/events/${event._id}`,
@@ -24,7 +33,6 @@ const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
         setEvent(data);
         Swal.fire("Success!", "Event updated successfully!", "success").then(
           () => {
-            setLoading(false);
             handleClose();
           }
         );
@@ -33,6 +41,7 @@ const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
         setError(err.message);
       });
     reset();
+    setLoading(false);
   };
   error &&
     Swal.fire({
@@ -69,7 +78,7 @@ const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
                   <Form.Label className="fw-bold">New Banner</Form.Label>
                   <div>
                     {picture && (
-                      <img className="w-25" src={picture} alt="bannerImage" />
+                      <img className="w-25" src={showPic} alt="bannerImage" />
                     )}
                     <ImageUploader
                       withIcon
@@ -86,7 +95,6 @@ const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            disabled={loading}
             variant="secondary"
             className="shadow-none"
             onClick={handleClose}
