@@ -99,7 +99,7 @@ const useFirebase = () => {
     const user = { email, displayName };
     axios({
       method: httpMethod,
-      url: "http://localhost:5000/users",
+      url: "https://intense-tor-04551.herokuapp.com/users",
       data: user,
     });
   };
@@ -109,7 +109,9 @@ const useFirebase = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/users/admin/${currentUser?.email}`)
+      .get(
+        `https://intense-tor-04551.herokuapp.com/users/admin/${currentUser?.email}`
+      )
       .then((res) => {
         setAdmin(res.data.admin);
         if (admin) {

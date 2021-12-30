@@ -16,11 +16,14 @@ const UserEvents = () => {
   useEffect(() => {
     try {
       axios
-        .get(`http://localhost:5000/registeredInfo/${email}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(
+          `https://intense-tor-04551.herokuapp.com/registeredInfo/${email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((res) => setUserEvents(res.data));
     } catch (error) {
       if (error) navigate("/forbidden");
@@ -45,7 +48,9 @@ const UserEvents = () => {
           "success"
         );
         axios
-          .delete(`http://localhost:5000/registeredInfo/${id}`)
+          .delete(
+            `https://intense-tor-04551.herokuapp.com/registeredInfo/${id}`
+          )
           .then((res) => {
             if (res.data.deletedCount) {
               const remaining = userEvents.filter((event) => event._id !== id);

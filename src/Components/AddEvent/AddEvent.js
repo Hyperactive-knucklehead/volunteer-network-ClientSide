@@ -29,7 +29,7 @@ const AddEvent = () => {
     } else {
       data.image = picture;
       axios
-        .post("http://localhost:5000/events", data)
+        .post("https://intense-tor-04551.herokuapp.com/events", data)
         .then(() => setLoading(false))
         .then(() => {
           Swal.fire(

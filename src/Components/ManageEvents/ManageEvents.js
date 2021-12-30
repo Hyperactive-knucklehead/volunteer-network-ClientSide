@@ -13,14 +13,14 @@ const ManageEvents = () => {
   const handleShow = (id) => {
     setLoading(id);
     axios
-      .get(`http://localhost:5000/events/${id}`)
+      .get(`https://intense-tor-04551.herokuapp.com/events/${id}`)
       .then((res) => setEvent(res.data))
       .then(() => setShow(true))
       .then(() => setLoading(false));
   };
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/events").then((res) => {
+    axios.get("https://intense-tor-04551.herokuapp.com/events").then((res) => {
       setEvents(res.data);
     });
   }, [event]);
@@ -35,12 +35,14 @@ const ManageEvents = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/events/${id}`).then((res) => {
-          if (res.data.deletedCount) {
-            Swal.fire("Deleted!", "The event has been deleted.", "success");
-            setEvents(events.filter((event) => event._id !== id));
-          }
-        });
+        axios
+          .delete(`https://intense-tor-04551.herokuapp.com/events/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount) {
+              Swal.fire("Deleted!", "The event has been deleted.", "success");
+              setEvents(events.filter((event) => event._id !== id));
+            }
+          });
       }
     });
   };

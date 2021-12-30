@@ -16,7 +16,10 @@ const UpdateEvent = ({ show, handleClose, event, setEvent }) => {
     setLoading(true);
     data.image = picture ? picture : event.image;
     axios
-      .patch(`http://localhost:5000/events/${event._id}`, data)
+      .patch(
+        `https://intense-tor-04551.herokuapp.com/events/${event._id}`,
+        data
+      )
       .then(() => {
         setEvent(data);
         Swal.fire("Success!", "Event updated successfully!", "success").then(

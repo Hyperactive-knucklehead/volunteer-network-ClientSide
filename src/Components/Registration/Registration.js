@@ -23,14 +23,14 @@ const Registration = () => {
   const { eventId } = useParams();
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/events/${eventId}`)
+      .get(`https://intense-tor-04551.herokuapp.com/events/${eventId}`)
       .then((res) => setEvent(res.data));
   }, [eventId]);
 
   //getting all register info
   useEffect(() => {
     axios
-      .get("http://localhost:5000/registeredInfo")
+      .get("https://intense-tor-04551.herokuapp.com/registeredInfo")
       .then((res) => setRegisteredEvents(res.data));
   }, []);
 
@@ -53,15 +53,17 @@ const Registration = () => {
       <ScrollToTop />;
       setError("You have already registered for this event");
     } else {
-      axios.post("http://localhost:5000/registeredInfo", data).then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire(
-            "Good job!",
-            `You have successfully registered for ${event.name} event`,
-            "success"
-          ).then(() => navigate("/"));
-        }
-      });
+      axios
+        .post("https://intense-tor-04551.herokuapp.com/registeredInfo", data)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire(
+              "Good job!",
+              `You have successfully registered for ${event.name} event`,
+              "success"
+            ).then(() => navigate("/"));
+          }
+        });
     }
     reset();
     setLoading(false);

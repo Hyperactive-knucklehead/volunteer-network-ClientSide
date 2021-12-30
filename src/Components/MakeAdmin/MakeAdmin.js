@@ -13,7 +13,7 @@ const MakeAdmin = () => {
   const onSubmit = (data) => {
     setLoading(true);
     axios
-      .put("http://localhost:5000/users/admin", data, {
+      .put("https://intense-tor-04551.herokuapp.com/users/admin", data, {
         headers: {
           authorization: `Bearer ${token}`,
         },

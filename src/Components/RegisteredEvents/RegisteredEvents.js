@@ -10,7 +10,7 @@ const RegisteredEvents = () => {
   //getting all registered info
   useEffect(() => {
     axios
-      .get("http://localhost:5000/registeredInfo")
+      .get("https://intense-tor-04551.herokuapp.com/registeredInfo")
       .then((res) => setRegisteredEvents(res.data));
   }, [updated]);
   const handleDelete = (id) => {
@@ -30,7 +30,9 @@ const RegisteredEvents = () => {
           "success"
         );
         axios
-          .delete(`http://localhost:5000/registeredInfo/${id}`)
+          .delete(
+            `https://intense-tor-04551.herokuapp.com/registeredInfo/${id}`
+          )
           .then((res) => {
             if (res.data.deletedCount) {
               const remaining = registeredEvents.filter(
@@ -55,9 +57,12 @@ const RegisteredEvents = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:5000/registeredInfo/${id}`, {
-            status: "approved",
-          })
+          .patch(
+            `https://intense-tor-04551.herokuapp.com/registeredInfo/${id}`,
+            {
+              status: "approved",
+            }
+          )
           .then((res) => res.data.modifiedCount && setUpdated(id))
           .then(() =>
             Swal.fire(

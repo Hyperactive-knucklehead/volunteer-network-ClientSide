@@ -16,7 +16,7 @@ const Events = () => {
     setDisplayEvents(matchedEvents);
   };
   useEffect(() => {
-    axios.get("http://localhost:5000/events").then((res) => {
+    axios.get("https://intense-tor-04551.herokuapp.com/events").then((res) => {
       setEvents(res.data);
       setDisplayEvents(res.data);
     });
